@@ -7,7 +7,7 @@ namespace ShapeDrawing
     {
         public static void Main()
         {
-            Shape myShape = new Shape();
+            Drawing myDrawing = new Drawing();
 
             //Open the game window
             SwinGame.OpenGraphicsWindow("GameMain", 800, 600);
@@ -21,22 +21,29 @@ namespace ShapeDrawing
                 //Clear the screen and draw the framerate
                 SwinGame.ClearScreen(Color.White);
                 SwinGame.DrawFramerate(0,0);
-                
-                // Move the shape to the location of the mouse when clicking the left mouse button
-                if (SwinGame.MouseDown(MouseButton.LeftButton))
+
+                if (SwinGame.MouseClicked(MouseButton.LeftButton))
                 {
-                    myShape.X = SwinGame.MouseX();
-                    myShape.Y = SwinGame.MouseY();
+                    myDrawing.AddShape(new Shape(Color.Purple, SwinGame.MouseX(), SwinGame.MouseY(), 100, 100));
+                }
+                
+                if (SwinGame.KeyTyped(KeyCode.vk_SPACE))
+                {
+                    myDrawing.Background = SwinGame.RandomRGBColor(255);
                 }
 
-                // Change the colour of the shape if the mouse is inside the shape and we are pressing space
-                if (SwinGame.KeyReleased(KeyCode.vk_SPACE) && myShape.IsAt(SwinGame.MousePosition()))
+                if (SwinGame.MouseClicked(MouseButton.RightButton))
                 {
-                    myShape.ShapeColor = SwinGame.RandomRGBColor(255);
+                    myDrawing.SelectShapesAt(SwinGame.MousePosition());
                 }
 
-                myShape.Draw();
-                
+                if (SwinGame.KeyTyped(KeyCode.vk_DELETE))
+                {
+                    myDrawing.RemoveSelected();
+                }
+
+                myDrawing.Draw();
+
                 //Draw onto the screen
                 SwinGame.RefreshScreen(60);
             }
