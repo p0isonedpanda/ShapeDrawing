@@ -24,7 +24,7 @@ namespace ShapeDrawing
 
                 if (SwinGame.MouseClicked(MouseButton.LeftButton))
                 {
-                    myDrawing.AddShape(new Shape(Color.Purple, SwinGame.MouseX(), SwinGame.MouseY(), 100, 100));
+                    myDrawing.AddShape(new Shape(Color.Purple, SwinGame.MouseX() - 25, SwinGame.MouseY() - 25, 50, 50));
                 }
                 
                 if (SwinGame.KeyTyped(KeyCode.vk_SPACE))
