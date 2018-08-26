@@ -5,9 +5,17 @@ namespace ShapeDrawing
 {
     public class GameMain
     {
+        private enum ShapeKind
+        {
+            Rectangle,
+            Circle,
+            Line
+        }
+
         public static void Main()
         {
             Drawing myDrawing = new Drawing();
+            ShapeKind kindToAdd = ShapeKind.Circle;
 
             //Open the game window
             SwinGame.OpenGraphicsWindow("GameMain", 800, 600);
@@ -22,9 +30,40 @@ namespace ShapeDrawing
                 SwinGame.ClearScreen(Color.White);
                 SwinGame.DrawFramerate(0,0);
 
+                if (SwinGame.KeyTyped(KeyCode.vk_r))
+                {
+                    kindToAdd = ShapeKind.Rectangle;
+                }
+
+                if (SwinGame.KeyTyped(KeyCode.vk_c))
+                {
+                    kindToAdd = ShapeKind.Circle;
+                }
+
+                if (SwinGame.KeyTyped(KeyCode.vk_l))
+                {
+                    kindToAdd = ShapeKind.Line;
+                }
+
                 if (SwinGame.MouseClicked(MouseButton.LeftButton))
                 {
-                    myDrawing.AddShape(new Shape(Color.Purple, SwinGame.MouseX() - 25, SwinGame.MouseY() - 25, 50, 50));
+                    Shape newShape;
+                    if (kindToAdd == ShapeKind.Rectangle)
+                    {
+                        newShape = new Rectangle();
+                    }
+                    else if (kindToAdd == ShapeKind.Circle)
+                    {
+                        newShape = new Circle();
+                    }
+                    else
+                    {
+                        newShape = new Line();
+                    }
+                
+                    newShape.X = SwinGame.MouseX();
+                    newShape.Y = SwinGame.MouseY();
+                    myDrawing.AddShape(newShape);
                 }
                 
                 if (SwinGame.KeyTyped(KeyCode.vk_SPACE))
