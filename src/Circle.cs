@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using SwinGameSDK;
 
 namespace ShapeDrawing
@@ -38,6 +39,19 @@ namespace ShapeDrawing
         public override bool IsAt(Point2D pt)
         {
             return SwinGame.PointInCircle(pt, X, Y, _radius);
+        }
+
+        public override void SaveTo(StreamWriter writer)
+        {
+            writer.WriteLine("Circle");
+            base.SaveTo(writer);
+            writer.WriteLine(_radius);
+        }
+
+        public override void LoadFrom(StreamReader reader)
+        {
+            base.LoadFrom(reader);
+            _radius = reader.ReadInteger();
         }
     }
 }

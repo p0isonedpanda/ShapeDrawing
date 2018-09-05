@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using SwinGameSDK;
 
 namespace ShapeDrawing
@@ -64,6 +65,21 @@ namespace ShapeDrawing
         public override bool IsAt(Point2D pt)
         {
             return SwinGame.PointInRect(pt, X, Y, _width, _height);
+        }
+
+        public override void SaveTo(StreamWriter writer)
+        {
+            writer.WriteLine("Rectangle");
+            base.SaveTo(writer);
+            writer.WriteLine(_width);
+            writer.WriteLine(_height);
+        }
+
+        public override void LoadFrom(StreamReader reader)
+        {
+            base.LoadFrom(reader);
+            _width = reader.ReadInteger();
+            _height = reader.ReadInteger();
         }
     }
 }

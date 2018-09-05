@@ -81,6 +81,23 @@ namespace ShapeDrawing
                     myDrawing.RemoveSelected();
                 }
 
+                if (SwinGame.KeyTyped(KeyCode.vk_s))
+                {
+                    myDrawing.Save("./ShapeDrawing.txt");
+                }
+
+                if (SwinGame.KeyTyped(KeyCode.vk_o))
+                {
+                    try
+                    {
+                        myDrawing.Load("./ShapeDrawing.txt");
+                    }
+                    catch (Exception e)
+                    {
+                        Console.Error.WriteLine("Error loading file: {0}", e.Message);
+                    }
+                }
+
                 myDrawing.Draw();
 
                 //Draw onto the screen
